@@ -1,6 +1,11 @@
 import openai
+import json
 
-openai.api_key = "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"
+# save token in a json file to access
+with open('token.json', 'r') as json_file:
+    token = json.load(json_file)
+
+openai.api_key = token["openai_token"]
 
 
 def get_prompt(message):
@@ -10,7 +15,8 @@ def get_prompt(message):
 
 def get_completion(prompt):
 
-    rules = "Reply with short and brief answer. "
+    rules = "Reply with a brief answer. "
+    # rules = " "
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",

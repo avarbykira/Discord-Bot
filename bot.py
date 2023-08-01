@@ -1,10 +1,16 @@
+import json
 import discord
 
 import chatgpt
 
 
+# save token in a json file to access
+with open('token.json', 'r') as json_file:
+    token = json.load(json_file)
+
+
 def run_discord_bot():
-    token = 'MTEzMzcwMzU2Nzc0MDUwNjEzMg.GJo36t.8FdUx3qsXn6ku5232U3ndLjz-S2jsS53dH9rnA'
+    discord_token = token["discord_token"]
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
@@ -29,7 +35,7 @@ def run_discord_bot():
             # activate bot
             await respond(message)
 
-    client.run(token)
+    client.run(discord_token)
 
 
 async def respond(message):
@@ -60,12 +66,12 @@ async def respond(message):
         # format embedded reply in discord
         embed = discord.Embed(
             colour=discord.Colour.from_rgb(0, 166, 126),
-            # description=reply,
-            # title="Hi, " + username + "! Here's your reply: "
+            description=reply,
+            title="Reply to \" " + prompt + " \""
         )
-        embed.add_field(name=reply, value="————")
-        embed.set_footer(text="This message costs " + str(token_used) + " tokens")
-        # embed.set_thumbnail(url="https://raw.githubusercontent.com/avarbykira/img-bed/107e809437545fb4d2a474844d5719399e94f86c/openai-icon-png.png")
+        # embed.add_field(name=reply, value="————")
+        embed.set_footer(text="--- \n This message costs " + str(token_used) + " tokens")
+        embed.set_thumbnail(url="https://raw.githubusercontent.com/avarbykira/img-bed/107e809437545fb4d2a474844d5719399e94f86c/openai-icon-png.png")
 
         await message.channel.send(embed=embed, reference=message)
 
