@@ -1,13 +1,16 @@
-# Discord-Bot
+# Discord Bot with ChatGPT Integration
 
-This bot can:
+Elevate your Discord experience with this bot, capable of:
 
-- reply to certain command and message.
-- call ChatGPT API and generate answer in the context of a chat.
+- Responding to specific commands and messages.
+- Leveraging the ChatGPT API to generate contextually relevant answers within chat interactions.
 
-## Update log
+## Recent Updates
 
-- 1/08/2023:
-  - Refactor old code.
-  - new function: AI chatbot, done.
-  - use json file to save discord and chatgpt token.
+Date: 1/08/2023
+
+Changes:
+
+Comprehensive refactoring of previous code for enhanced performance and readability.
+Introduction of a new feature: AI Chatbot integration.
+Implemented secure storage of Discord and ChatGPT tokens using a JSON file.
