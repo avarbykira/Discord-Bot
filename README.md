@@ -1,6 +1,9 @@
 # Discord-Bot
 
-my first discord bot
+This bot can:
+
+- reply to certain command and message.
+- call ChatGPT API and generate answer in the context of a chat.
 
 ## Update log
 

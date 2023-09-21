@@ -1,8 +1,12 @@
 import json
 import discord
+from discord import app_commands
+from discord.ext import commands
 
 import chatgpt
 
+
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 # save token in a json file to access
 with open('token.json', 'r') as json_file:
@@ -14,6 +18,20 @@ def run_discord_bot():
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
+
+    @bot.tree.command(name="say")
+    @app_commands.describe(thing_to_say="What should I say?")
+    async def say(interaction: discord.Interaction, thing_to_say: str):
+        await interaction.response.send_message(f"{interaction.user.name} said '{thing_to_say}'")
+
+    @bot.event
+    async def on_ready():
+        print("Bot is up!")
+        try:
+            synced = await bot.tree.sync()
+            print(f"Synced {len(synced)} command(s)")
+        except Exception as e:
+            print(e)
 
     @client.event
     async def on_ready():
@@ -36,6 +54,7 @@ def run_discord_bot():
             await respond(message)
 
     client.run(discord_token)
+    bot.run(discord_token)
 
 
 async def respond(message):
@@ -45,7 +64,7 @@ async def respond(message):
     username = str(message.author)
     channel = str(message.channel)
 
-    print(f"{username} said: ’{user_message}‘ （{channel})")
+    print(f"{username} said: ’{str(message.content)}' （{channel})")
 
     if user_message.startswith("ai"):
         tips = "Let me think so..."  # todo: more replies, ues a random function to choose one of them

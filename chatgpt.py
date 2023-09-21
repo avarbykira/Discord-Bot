@@ -15,12 +15,13 @@ def get_prompt(message):
 
 def get_completion(prompt):
 
-    rules = "Reply with a brief answer. "
+    rule_none = ""
+    rule_brief = "Reply with a brief answer. "
     # rules = " "
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": rules+prompt}]
+        messages=[{"role": "user", "content": rule_none + prompt}]
     )
     return completion
 
